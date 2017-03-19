@@ -1,0 +1,72 @@
+<configuration>
+
+    <!-- 日志文件输出目录 -->
+
+    <property
+        name="LOG_DIR"
+        value="/sdcard/logback/com.gauss.recorder" />
+
+    <!-- 日志文件格式设置 -->
+
+    <appender
+        name="LogFile"
+        class="ch.qos.logback.core.rolling.RollingFileAppender" >
+
+        <file>
+${LOG_DIR}/debug.log
+        </file>
+
+        <encoder>
+
+            <pattern>
+%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy" >
+
+            <!-- daily rollover period -->
+
+            <fileNamePattern>
+${LOG_DIR}/log.%d.txt
+            </fileNamePattern>
+
+            <!-- keep 7 days' worth of history -->
+
+            <maxHistory>
+7
+            </maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Logcat设置 -->
+
+    <appender
+        name="logcat"
+        class="ch.qos.logback.classic.android.LogcatAppender" >
+
+        <encoder>
+
+            <pattern>
+%msg
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- 默认日志输出类 -->
+
+    <logger
+        name="com.gauss.recorder"
+        level="DEBUG" >
+
+        <appender-ref ref="LogFile" />
+    </logger>
+
+    <!-- 日志输出默认级别 -->
+
+    <root level="DEBUG" >
+
+        <appender-ref ref="logcat" />
+    </root>
+
+</configuration>
